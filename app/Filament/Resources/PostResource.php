@@ -26,14 +26,10 @@ class PostResource extends Resource
                     ->maxLength(255),
                 Forms\Components\RichEditor::make('content')
                     ->disableToolbarButtons(['link', 'attachFiles'])
-                    ->required()
                     ->maxLength(65535),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->label('Thumbnail')
-                    ->image()
-                    ->panelAspectRatio('16:9')
-                    ->panelLayout('integrated')
-                    ->removeUploadedFileButtonPosition('right'),
+                    ->image(),
             ]);
     }
 
