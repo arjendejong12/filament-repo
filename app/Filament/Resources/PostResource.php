@@ -10,8 +10,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostResource extends Resource
 {
@@ -23,24 +21,19 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('Tabs')
-                    ->id('tabs')
-                    ->persistTabInQueryString('tab')
-                    ->tabs([
-                        Forms\Components\Tabs\Tab::make('Title')
-                            ->schema([
-                                Forms\Components\TextInput::make('title')
-                                    ->required()
-                                    ->maxLength(255),
-                            ]),
-                        Forms\Components\Tabs\Tab::make('Content')
-                            ->schema([
-                                Forms\Components\RichEditor::make('content')
-                                    ->disableToolbarButtons(['link', 'attachFiles'])
-                                    ->required()
-                                    ->maxLength(65535),
-                            ]),
-                    ]),
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\RichEditor::make('content')
+                    ->disableToolbarButtons(['link', 'attachFiles'])
+                    ->required()
+                    ->maxLength(65535),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->image()
+                    ->panelAspectRatio('16:9')
+                    ->panelLayout('integrated')
+                    ->removeUploadedFileButtonPosition('right'),
             ]);
     }
 
